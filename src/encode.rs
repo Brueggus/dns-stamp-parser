@@ -34,7 +34,7 @@ fn encode_bytes(buffer: &mut Vec<u8>, bytes: impl AsRef<[u8]>) -> EncodeResult<(
 fn ip_addr_to_string(ip_addr: IpAddr) -> String {
     let mut string = ip_addr.to_string();
     if ip_addr.is_ipv6() {
-        string = format!("[{}]", string);
+        string = format!("[{string}]");
     }
     string
 }
@@ -75,7 +75,7 @@ fn encode_socket_addr(
 fn addr_to_string(addr: Addr, default_port: u16) -> String {
     match addr {
         Addr::SocketAddr(socket_addr) => socket_addr_to_string(socket_addr, default_port),
-        Addr::Port(port) => format!(":{}", port),
+        Addr::Port(port) => format!(":{port}"),
     }
 }
 
@@ -115,7 +115,7 @@ fn encode_pk(buffer: &mut Vec<u8>, pk: &[u8; 32]) -> EncodeResult<()> {
 /// [`VLP()`]:  https://dnscrypt.info/stamps-specifications#common-definitions
 fn encode_vlp<T: AsRef<[u8]>>(buffer: &mut Vec<u8>, vlp: &[T]) -> EncodeResult<()> {
     if vlp.is_empty() {
-        encode_bytes(buffer, &[])
+        encode_bytes(buffer, [])
     } else {
         let len = vlp.len();
         if let Some(array) = vlp.get(..(len - 1)) {

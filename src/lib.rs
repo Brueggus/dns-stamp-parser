@@ -275,8 +275,8 @@ impl DnsOverTls {
 #[inline]
 fn hostname(addr: Option<Addr>, host: &str) -> String {
     match addr {
-        None => format!("{}:443", host),
-        Some(Addr::Port(port)) => format!("{}:{}", host, port),
+        None => format!("{host}:443"),
+        Some(Addr::Port(port)) => format!("{host}:{port}"),
         Some(Addr::SocketAddr(addr)) => addr.to_string(),
     }
 }

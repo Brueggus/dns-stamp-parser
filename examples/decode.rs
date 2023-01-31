@@ -17,19 +17,19 @@ fn main() {
         println!("No filter: {}", props.contains(Props::NO_FILTER));
 
         if let Some(addr) = addr {
-            println!("IP Address: {:?}", addr);
+            println!("IP Address: {addr:?}");
         } else {
             println!("No Address");
         }
 
         print!("Hashes: ");
         for hash in hashi {
-            print!("{:?},", hash);
+            print!("{hash:?},");
         }
         println!();
 
-        println!("Hostname: {}", hostname);
+        println!("Hostname: {hostname}");
 
-        println!("Path: {}", path);
+        println!("Path: {path}");
     }
 }

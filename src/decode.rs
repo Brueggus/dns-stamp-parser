@@ -83,7 +83,7 @@ fn decode_ip_addr(buf: &[u8], offset: &mut usize) -> DecodeResult<IpAddr> {
 fn str_to_socket_addr(string: &str, default_port: u16) -> DecodeResult<SocketAddr> {
     match string.parse() {
         Ok(result) => Ok(result),
-        Err(_) => Ok(format!("{}:{}", string, default_port).parse()?),
+        Err(_) => Ok(format!("{string}:{default_port}").parse()?),
     }
 }
 
