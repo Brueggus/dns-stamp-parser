@@ -155,14 +155,14 @@ pub enum DnsStamp {
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct DnsCrypt {
     /// server properties
-    props: Props,
+    pub props: Props,
     /// addr is the IP address, as a string, with a port number if the server
     /// is not accessible over the standard port for the protocol (443).
-    addr: SocketAddr,
+    pub addr: SocketAddr,
     /// pk is the DNSCrypt provider’s Ed25519 public key, as 32 raw bytes.
-    pk: [u8; 32],
+    pub pk: [u8; 32],
     /// providerName is the DNSCrypt provider name.
-    provider_name: String,
+    pub provider_name: String,
 }
 
 /// DoH configuration parsed from a dnsstamp
