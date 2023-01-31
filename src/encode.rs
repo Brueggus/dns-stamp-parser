@@ -3,7 +3,7 @@ use crate::{
     Addr, AnonymizedDnsCryptRelay, DnsCrypt, DnsOverHttps, DnsOverTls, DnsPlain, DnsStamp,
     DnsStampType, EncodeError, EncodeResult, ObliviousDoHTarget, Props,
 };
-use base64::{encode_config, URL_SAFE_NO_PAD};
+use base64::Engine;
 use std::net::{IpAddr, SocketAddr};
 
 /// Encode a `crate::DnsStampType` into a `std::vec::Vec<u8>`.
@@ -157,7 +157,10 @@ fn encode_bootstrap_ipi(buffer: &mut Vec<u8>, bootstrap_ipi: &[IpAddr]) -> Encod
 
 /// Encode `[u8]` slice with Base64 and prepand `"sdns://"`.
 fn encode_base64(buffer: &[u8]) -> String {
-    format!("sdns://{}", encode_config(buffer, URL_SAFE_NO_PAD))
+    format!(
+        "sdns://{}",
+        base64::engine::general_purpose::URL_SAFE_NO_PAD.encode(buffer)
+    )
 }
 
 /// Encode a `crate::DnsPlain` into a `std::vec::Vec<u8>` as `crate::DnsStampType::Plain`.
