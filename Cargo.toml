@@ -1,6 +1,6 @@
 [package]
 name = "dns-stamp-parser"
-version = "3.0.0"
+version = "3.0.1"
 authors = ["LinkTed <link.ted@mailbox.org>", "Evan Cameron <cameron.evan@gmail.com>"]
 license = "BSD-3-Clause"
 edition = "2018"
@@ -11,10 +11,10 @@ keywords = ["doh", "dns", "stamps", "dnscrypt"]
 categories = ["parser-implementations", "encoding"]
 
 [dependencies]
-base64 = "~0.21.0"
-bitflags = "~1.2.1"
-thiserror = "~1.0.38"
-trust-dns-resolver = { version = "~0.20.0", optional = true }
+base64 = "0.22"
+bitflags = "2"
+thiserror = "2"
+trust-dns-resolver = { version = "0.23", optional = true }
 
 [features]
 default = []

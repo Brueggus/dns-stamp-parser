@@ -10,7 +10,6 @@
     non_upper_case_globals
 )]
 #![allow(clippy::cognitive_complexity)]
-#![deny(broken_intra_doc_links)]
 #![doc(test(
     no_crate_inject,
     attr(deny(warnings, rust_2018_idioms), allow(dead_code, unused_variables))
@@ -31,6 +30,7 @@ bitflags! {
     /// Represent the [`props`].
     ///
     /// [`props`]: https://dnscrypt.info/stamps-specifications#dnscrypt-stamps
+    #[derive(Debug, Clone, PartialEq, Eq)]
     pub struct Props: u64 {
         /// If this flag is present then the server supports [DNSSEC].
         ///
@@ -291,12 +291,7 @@ fn bootstrap_hostname(addr: Option<Addr>, host: &str, bootstrap: &[IpAddr]) -> i
         let mut config = ResolverConfig::new();
         for ip in bootstrap {
             let socket_addr = SocketAddr::new(*ip, 53);
-            config.add_name_server(NameServerConfig {
-                socket_addr,
-                protocol: Protocol::Udp,
-                tls_dns_name: None,
-                trust_nx_responses: false,
-            });
+            config.add_name_server(NameServerConfig::new(socket_addr, Protocol::Udp));
         }
 
         let resolver = Resolver::new(config, ResolverOpts::default()).unwrap();
